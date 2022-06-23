@@ -21,14 +21,20 @@ else:
 
     print(MSG_TOTAL_BILL)
     total_bill = float(input())
-    person_bill = round(total_bill / num_of_people, 2)
-    for k in people_bills:
-        people_bills[k] = person_bill
-    # print(people_bills)
     print(MSG_LUCKY)
     lucky = input()
+    lucky_one = None
     if lucky.strip().title() in "Yes":
         lucky_one = random.choice([p for p in people_bills])
         print(f'{lucky_one} is the lucky one!')
+        num_of_people -= 1
     else:
         print(MSG_NO_LUCKY)
+
+    person_bill = round(total_bill / num_of_people, 2)
+    for k in people_bills:
+        if k == lucky_one:
+            people_bills[k] = 0
+        else:
+            people_bills[k] = person_bill
+    print(people_bills)
